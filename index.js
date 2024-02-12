@@ -1,4 +1,87 @@
-import fs from 'fs';
+import fs from 'fs'
+import express from "express";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+export const __dirname = dirname(__filename);
+
+
+const app = express()
+const port = 8080
+
+
+app.use(express.urlencoded({extended:true}))
+
+
+
+app.get("/", (req,res) => {
+
+  res.send(users)
+
+})
+
+
+app.get("/home", (req,res) => {
+
+  res.sendFile(path.resolve(__dirname, "./index.html"))
+
+})
+
+app.get("/usuario", (req,res) => {
+
+
+    let user = {
+      nombre: "mario",
+      apellido:"ruiz",
+      edad: 35,
+      correo: "MarioRuiz@gmail.com"
+    }
+
+    res.json(user)
+
+})
+
+app.get("/usuario/:userId", (req,res) => {
+
+  let userId = req.params.userId
+  let limit = req.query.limit
+  console.log(limit)
+
+  let data = users.find((user) => (user.id == userId))
+
+  if (!data) return res.send("Usuario no encontrado")
+
+  res.send(data)
+
+})
+
+
+app.get("/usuario", (req,res) => {
+
+  let userName = req.query.name
+  let finalName = userName.charAt(0).tpUpperCase() + userName.substring(1, userName.length)
+
+  let data = users.find((user) => (user.name == finalName))
+
+  if (!data) return res.send("Usuario no encontrado")
+
+  res.send(data)
+
+})
+
+
+
+let users = [
+  {id:1, name:"marcelo", lastname:"Roger" , gender: "m"},
+  {id:2, name:"lucia", lastname:"Maidana" , gender: "f"},
+  {id:3, name:"raul", lastname:"Perez" , gender: "m"},
+  {id:4, name:"martina", lastname:"Recalde" , gender: "f"},
+];
+
+app.listen(port, () => console.log("Servidor corriendo en el puerto", port))
+
+
 
 const PATH = "./Usuarios.json"
 
