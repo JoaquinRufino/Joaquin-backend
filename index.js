@@ -10,6 +10,8 @@ export const __dirname = dirname(__filename);
 const app = express()
 const port = 8080
 
+app.listen(port, () => console.log("Servidor corriendo en el puerto", port))
+
 
 app.use(express.urlencoded({extended:true}))
 
@@ -79,7 +81,7 @@ let users = [
   {id:4, name:"martina", lastname:"Recalde" , gender: "f"},
 ];
 
-app.listen(port, () => console.log("Servidor corriendo en el puerto", port))
+
 
 
 
